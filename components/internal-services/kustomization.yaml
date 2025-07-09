@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: stonesoup-int-srvc
+
+resources:
+  - base
+
+# This is a root kustomization file for internal-services
+# You can reference specific environments as needed:
+# - For staging: use staging/kustomization.yaml
+# - For prod: use prod/kustomization.yaml
+# - For base only: use base/kustomization.yaml
+
+# Uncomment the desired environment resources below:
+# resources:
+#   - staging
+#   - prod
+
+# Or reference only the base if needed:
+# resources:
+#   - base 

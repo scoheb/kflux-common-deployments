@@ -1,0 +1,31 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: InternalRequest
+metadata:
+  generateName: simple-signing-pipeline-
+  namespace: managed-release-team-tenant
+  labels:
+    internal-services.appstudio.openshift.io/group-id: 56acc0eb-c491-492c-834a-590764fa7581
+    internal-services.appstudio.openshift.io/pipelinerun-uid: 57aedf12-1afc-4c94-a90d-2f459f7ac007
+spec:
+  params:
+    config_map_name: hacbs-signing-pipeline-config-staging-redhatrelease2
+    manifest_digest: 'sha256:c89ef2e06105fc9cfbe69ef2fc44c2959b60b7f5fdae16995cb0fa67b95d7c23'
+    pipeline_image: 'quay.io/redhat-isv/operator-pipelines-images:released'
+    reference: 'registry.stage.redhat.io/openshift-sandboxed-containers/osc-podvm-builder-rhel9:1.0'
+    requester: system_serviceaccount_remote-argocd_remote-argocd
+    taskGitRevision: production
+    taskGitUrl: 'https://github.com/konflux-ci/release-service-catalog.git'
+  pipeline:
+    pipelineRef:
+      params:
+        - name: url
+          value: 'https://github.com/konflux-ci/release-service-catalog.git'
+        - name: revision
+          value: production
+        - name: pathInRepo
+          value: pipelines/internal/simple-signing-pipeline/simple-signing-pipeline.yaml
+      resolver: git
+  timeouts:
+    finally: 0h5m0s
+    pipeline: 0h30m0s
+    tasks: 0h25m0s
